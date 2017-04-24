@@ -1,6 +1,231 @@
-#home, #addBikePage {
+#home, #addBikePage, #product-page {
     display: none;
 }
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+html {
+    font: normal 10px/1.4 "Arial", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -ms-overflow-style: scrollbar;
+}
+
+body {
+    font-size: 16px;
+    margin: 0;
+}
+
+a, input, select, button {
+    color: inherit;
+    font: inherit;
+}
+
+figure, fieldset {
+    margin: 0;
+    padding: 0;
+}
+
+fieldset {
+    border: none;
+}
+
+.wrapper {
+    min-height: 100%;
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    padding: 0 1em;
+    margin: auto;
+}
+
+.content {
+    padding: 1em;
+}
+
+.page__title {
+    font-size: 1.25em;
+    font-weight: 400;
+    text-transform: capitalize;
+}
+/* /common */
+
+
+
+/* HELPERS */
+.responsive-img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.list-reset {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.flex-block {
+    width: 100%;
+    flex: 1 1 100%;
+}
+
+.overflow-fix {
+    flex: 1 1 0%;
+}
+
+.text-center {
+    text-align: center;
+}
+/* /helpers */
+
+
+
+/* FORM */
+.form--add-product {
+    margin-left: -0.5em;
+    margin-right: -0.5em;
+}
+
+@media (min-width: 640px) {
+    .form--add-product {
+        display: flex;
+    }
+}
+
+.form__row {
+    display: flex;
+    margin-left: -0.5em;
+    margin-right: -0.5em;
+}
+
+.form__col,
+.form__col--sm,
+.form__col--md,
+.form__col--lg {
+    padding: 0 0.5em;
+}
+
+.form__col {
+    width: 100%;
+    max-width: 50%;
+    overflow: hidden;
+}
+
+.form__group {
+    margin-bottom: 1.5em;
+}
+
+.form__group:last-child {
+    margin-bottom: 0;
+}
+
+@media (min-width: 640px) {
+    .form--add-product {
+        flex-flow: row-reverse wrap;
+    }
+
+    .form--add-product .form__group {
+        flex: 1 1 48%;
+    }
+
+    .form__footer {
+        text-align: center;
+        flex: 1 1 100%;
+    }
+}
+
+.form__element {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    margin-bottom: 1.5em;
+}
+
+.form__control {
+    width: 100%;
+    padding: 0.25em;
+    line-height: 1;
+    border: 1px solid #e5e5e5;
+
+}
+
+.form__control--error {
+    border-color: red;
+}
+
+.form__error {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    font-size: 0.825em;
+    color: red;
+}
+
+.form__img {
+    margin: 0 auto 1.5em;
+}
+
+.fieldset {
+    border: none;
+}
+
+.label {
+    flex: 0 0 auto;
+    width: auto;
+    padding-right: 0.5em;
+}
+
+.textarea {
+    resize: none;
+    min-height: 100px;
+}
+/* form */
+
+
+/* BUTTONS */
+.button {
+    display: inline-block;
+    border: 1px solid transparent;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.button::-moz-focus-inner { /* in FF buttons have extra padding */
+    padding: 0 !important;
+    border: 0 none !important;
+}
+
+.button--default {
+    padding: 0.5em 1.5em;
+    background: #e5e5e5;
+    border-radius: 0.5em;
+    text-transform: capitalize;
+}
+/* /button */
 
 * {
     box-sizing: border-box;
@@ -111,5 +336,51 @@ a, input, select, button {
 
 .product__title {
     font-size: 1em;
+}
+
+.product-details {
+    display: flex;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+.options {
+    padding: 0 0.5em;
+}
+
+@media (min-width: 640px) {
+    .options {
+        flex: 1 1 50%;
+        max-width: 50%;
+    }
+}
+
+.options__headline {
+    padding: 0.25em 0;
+    font-size: 1.6em;
+}
+
+.options__description {
+    padding: 0.25em 0;
+    margin-bottom: 0.5em;
+}
+
+.options--text {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row nowrap;
+}
+
+.option__item {
+    margin-bottom: 0.25em;
+    padding-right: 0.5em;
+}
+
+.brand {
+    text-align: center;
+}
+
+.brand__logo {
+    margin: auto;
 }
 

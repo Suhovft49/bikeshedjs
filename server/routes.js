@@ -2,11 +2,13 @@
 var bike = require("./controllers/bike");
 var brand = require("./controllers/brand");
 var multer = require("multer");
+
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '/tmp/my-uploads')
+        cb(null, './my-uploads')
     },
     filename: function (req, file, cb) {
+        debugger;
         cb(null, file.mimetype)
     }
 });

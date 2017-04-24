@@ -64,9 +64,8 @@ App.initHomePage = function() {
     console.log(data);
 };
 
-var input = document.querySelector('input');
-
 input.onchange = function() {
+
     var formData = new FormData();
     formData.append('image', this.files[0]);
     formData.append('data', JSON.stringify({
@@ -110,3 +109,8 @@ App.linkClickedHandler = function(event) {
     event.preventDefault();
     history.pushState({page: event.target.dataset.page}, event.target.title, event.target.getAttribute('js-sref'))
 };
+
+App.setImagePreview = function(event) {
+    /*Your code here*/
+    debugger;
+}
