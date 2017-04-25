@@ -2,17 +2,17 @@
 var bike = require("./controllers/bike");
 var brand = require("./controllers/brand");
 var multer = require("multer");
+var upload = multer({ dest: './client/uploads/' });
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './my-uploads')
+        cb(null, './client/uploads');
     },
     filename: function (req, file, cb) {
-        debugger;
-        cb(null, file.mimetype)
+        cb(null, new Date().getTime().toString() + file.originalname);
     }
 });
-var upload = multer({ storage: storage });
+upload = multer({ storage: storage });
 function setRoutes(app) {
     var bikes = new bike.default();
     var brands = new brand.default();

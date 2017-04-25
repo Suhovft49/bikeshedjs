@@ -22,7 +22,9 @@ var BaseCtrl = (function () {
         };
         // Insert
         this.insert = function (req, res) {
+            req.body = JSON.parse(req.body.data);
             debugger;
+            req.body.image = req.file.path;
             var obj = new _this.model(req.body);
             obj.save(function (err, item) {
                 if (err) {

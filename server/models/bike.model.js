@@ -9,10 +9,7 @@ var bikeSchema = new mongoose.Schema({
     model: String,
     headline: String,
     description: String,
-    image: {
-        data: Buffer,
-        contentType: String
-    },
+    image: String,
     size: Number,
     price: String
 });

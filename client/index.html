@@ -15,22 +15,12 @@
             <a js-sref="addBike" href class="nav__link nav__link--add-prod" title="Add Bike" data-page="1" onclick="App.linkClickedHandler(event)">Add Bike</a>
         </nav>
     </header>
-    <input type="file">
     <div id="ui-view"></div>
 
     <div id="home">
         <section class="content">
             <h1 class="page__title">Current inventory</h1>
-            <div class="product-container">
-                <div class="product">
-                    <a href="#" class="product__wrap">
-                        <img src="http://placehold.it/400x200" alt="img" class="responsive-img product__preview">
-                        <h2 class="product__title">Model Name</h2>
-                    </a>
-
-                    <div class="product__price">$ 100.11</div>
-                </div>
-            </div>
+            <div class="product-container"></div>
         </section>
     </div>
 
@@ -39,12 +29,12 @@
             <div class="container">
                 <h1 class="page__title">Add a Bike</h1>
 
-                <form class="form form--add-product">
+                <form class="form form--add-product" onsubmit="App.formSubmit(event)" enctype="multipart/form-data">
                     <fieldset class="form__group form__col--md">
-                        <img src="http://placehold.it/300x300" alt="img" class="form__img responsive-img"/>
+                        <img src="http://placehold.it/300x300" alt="img" class="form__img responsive-img js__bike__preview"/>
                         <div class="form__element justify-center">
                             <label for="product-img">
-                                <input type="file" onchange="App.setImagePreview(event)" class="form__control hidden" id="product-img" />
+                                <input type="file" onchange="App.setImagePreview(event)" name="image" class="form__control hidden" id="product-img" />
                                 <span class="button button--default">Upload image</span>
                             </label>
                         </div>
@@ -53,7 +43,7 @@
                         <div class="form__row">
                             <div class="form__element form__col--sm">
                                 <label class="label hidden" for="product-brand"></label>
-                                <select class="form__control select" id="product-brand">
+                                <select class="form__control select" id="product-brand" name="brand">
                                     <option value="" hidden selected>Select brand</option>
                                     <option value="1">Brand name 1</option>
                                     <option value="2">Brand name 2</option>
@@ -64,7 +54,7 @@
 
                         <div class="form__element">
                             <label class="label" for="product-model">Model</label>
-                            <input class="form__control form__control--error input overflow-fix" id="product-model" type="text"/>
+                            <input class="form__control form__control--error input overflow-fix" name="model" id="product-model" type="text"/>
 
                             <!-- todo: note on error  -->
                             <span class="form__error">error</span>
@@ -75,7 +65,7 @@
                                 <div class="form__element">
                                     <label class="label" for="product-price">Price</label>
                                     <!-- todo: note on the input type in the case -->
-                                    <input class="form__control input overflow-fix" id="product-price" type="text"/>
+                                    <input class="form__control input overflow-fix" name="price" id="product-price" type="text"/>
 
                                 </div>
                             </div>
@@ -83,7 +73,7 @@
                                 <div class="form__element">
                                     <label class="label" for="product-size">Size</label>
                                     <!-- todo: note on the input type in the case -->
-                                    <input class="form__control input overflow-fix" id="product-size" type="text"/>
+                                    <input class="form__control input overflow-fix" name="size" id="product-size" type="text"/>
                                 </div>
                             </div>
                         </div>
@@ -91,7 +81,7 @@
                         <div class="form__row">
                             <div class="form__element form__col--sm">
                                 <label class="label hidden"></label>
-                                <select class="form__control select">
+                                <select class="form__control select" name="type">
                                     <option value="" hidden selected>Select type</option>
                                     <option value="1">Type name 1</option>
                                     <option value="2">Type name 2</option>
@@ -102,15 +92,16 @@
 
                         <div class="form__element">
                             <label class="label" for="product-headline">Headline</label>
-                            <input class="form__control input overflow-fix" id="product-headline" type="text"/>
+                            <input class="form__control input overflow-fix" name="headline" id="product-headline" type="text"/>
                         </div>
 
                         <div class="form__element">
                             <label class="label flex-block" for="product-desc">Description</label>
-                            <textarea id="product-desc" class="form__control textarea"></textarea>
+                            <textarea id="product-desc" class="form__control textarea" name="description"></textarea>
                         </div>
                         <div class="form__footer">
-                            <button class="button button--default">Add bike</button>
+                            <input type="submit" value="addBike">
+                            <!--<button class="button button&#45;&#45;default">Add bike</button>-->
                         </div>
                     </fieldset>
 

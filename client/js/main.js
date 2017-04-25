@@ -1,17 +1,11 @@
-var App  = Object.create(null);
-document.onreadystatechange = function (event) {
-    if (document.readyState === 'complete') {
+var App  = {};
 
-    }
-};
-/*
-* Simple routing for SPA (does not support nested view)
-*/
 App.router = {
     routes: {
         "/": "home",
         "home": "home",
-        "addBike": "addBike"
+        "addBike": "addBike",
+        "showBike": "showBike"
     },
     home: function() {
         App.el.innerHTML = document.getElementById('home').innerHTML;
@@ -20,11 +14,24 @@ App.router = {
     addBike: function() {
         App.el.innerHTML = document.getElementById('addBikePage').innerHTML;
     },
+    showBike: function(state) {
+        var productContainer = document.querySelector('.product-container');
+        var item = productContainer.querySelectorAll('[js-sref="'+state+'"]')[0];
+        var id = item.getAttribute('data-id');
+        var serviceUrl = '/api/bike/' + id;
+        var data = App.sendRequest('GET', serviceUrl);
+        App.initBikeInfoPage(data);
+
+
+    },
     handle: function (state) {
         var self,route;
         var state = state;
         self = this;
         route = self.routes[state];
+        if(!route && !isNaN(+state))  {
+            self.showBike(state)
+        }
         if (route) {
             if (typeof self[route] === 'function') {
                 self[route].call(self);
@@ -61,26 +68,34 @@ App.initHomePage = function() {
     var self = this;
     var serviceUrl = '/api/bikes';
     var data = this.sendRequest('GET', serviceUrl);
-    console.log(data);
+    App.fillHomePage(JSON.parse(data));
 };
 
-input.onchange = function() {
+App.initBikeInfoPage = function(data) {
+    App.el.innerHTML = document.getElementById('product-page').innerHTML;
+    var productDetailsContainer = document.querySelector('.product-details');
 
-    var formData = new FormData();
-    formData.append('image', this.files[0]);
-    formData.append('data', JSON.stringify({
-        brand: "jfdhgjkfd",
-        type: "jfdhgjkfd",
-        createdBy: "jfdhgjkfd",
-        createdDate: "jfdhgjkfd",
-        model: "jfdhgjkfd",
-        headline: "jfdhgjkfd",
-        description: "jfdhgjkfd",
-        size: 10,
-        price: '200'
-    }));
-    App.sendRequest('POST', '/api/bike', formData)
-}
+};
+
+App.fillHomePage = function(data) {
+    var productContainer = document.querySelector('.product-container');
+    data.forEach(function(el, index) {
+        var item = document.createElement('div');
+        item.className  = 'product-item';
+        var sref = index + 1;
+        var textNode = '<div class="product">' +
+                            '<a href="#" js-sref="'+ sref +'" data-id="'+el._id+'" data-page="3" onclick="App.linkClickedHandler(event)" class="product__wrap">' +
+                                '<img src="' + el.image + '" alt="img" class="responsive-img product__preview">' +
+                                '<h2 class="product__title">'+el.model+'</h2>' +
+                            '</a>' +
+                            '<div class="product__price">' + el.price + '</div>' +
+                        '</div>';
+        item.innerHTML = textNode;
+        item.data = el;
+        return productContainer.appendChild(item);
+
+    })
+};
 
 App.sendRequest = function(method, url, data) {
     var xhr = new XMLHttpRequest();
@@ -107,10 +122,41 @@ App.sendRequest = function(method, url, data) {
 
 App.linkClickedHandler = function(event) {
     event.preventDefault();
-    history.pushState({page: event.target.dataset.page}, event.target.title, event.target.getAttribute('js-sref'))
+    history.pushState({page: event.target.dataset.page}, event.target.title, event.target.getAttribute('js-sref') || event.target.parentNode.getAttribute('js-sref'))
 };
 
 App.setImagePreview = function(event) {
-    /*Your code here*/
-    debugger;
-}
+   var file = event.target.files[0];
+   return (function(file) {
+       if ( file.type.match(/image.*/) ) {
+           var reader = new FileReader();
+           reader.addEventListener("load", function(event) {
+               var imgPreview = document.querySelector('.js__bike__preview');
+               imgPreview.setAttribute('src', event.target.result);
+           });
+           reader.readAsDataURL(file);
+       }
+   })(file)
+};
+
+/*Create bike*/
+
+App.formSubmit = function (event) {
+    event.preventDefault();
+    var formControls, formData, dataForm;
+    formControls = event.currentTarget.querySelectorAll('.form__control');
+    formData = new FormData();
+    dataForm = this.generateDataForServer(formControls);
+    formData.append('image', dataForm.image);
+    formData.append('data', JSON.stringify(dataForm));
+    this.sendRequest('POST', '/api/bike', formData);
+};
+
+App.generateDataForServer = function(data) {
+    var buffer = {};
+    Array.prototype.forEach.call(data, function(el, index) {
+        el.files ? buffer[el.getAttribute('name')] = el.files[0] : buffer[el.getAttribute('name')] = el.value;
+    });
+    return buffer;
+};
+
