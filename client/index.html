@@ -10,17 +10,24 @@
 <body>
 <div class="wrapper">
     <header class="header">
-        <nav class="nav">
-            <a js-sref="/" href class="nav__link nav__link--product" title="Homepage" data-page="0" onclick="App.linkClickedHandler(event)">The BikeShed</a>
-            <a js-sref="addBike" href class="nav__link nav__link--add-prod" title="Add Bike" data-page="1" onclick="App.linkClickedHandler(event)">Add Bike</a>
-        </nav>
+        <div class="container">
+            <nav class="nav">
+                <a js-sref="/" href class="nav__link nav__link--product" title="Homepage" data-page="0"
+                   onclick="App.linkClickedHandler(event)">The BikeShed</a>
+                <a js-sref="addBike" href class="nav__link nav__link--add-prod" title="Add Bike" data-page="1"
+                   onclick="App.linkClickedHandler(event)">Add Bike</a>
+            </nav>
+        </div>
     </header>
     <div id="ui-view"></div>
 
     <div id="home">
+        <div class="ajax-error">No bikes found, please create new bike</div>
         <section class="content">
-            <h1 class="page__title">Current inventory</h1>
-            <div class="product-container"></div>
+            <div class="container">
+                <h1 class="page__title">Current inventory</h1>
+                <div class="product-container"></div>
+            </div>
         </section>
     </div>
 
@@ -28,13 +35,14 @@
         <div class="content">
             <div class="container">
                 <h1 class="page__title">Add a Bike</h1>
-
                 <form class="form form--add-product" onsubmit="App.formSubmit(event)" enctype="multipart/form-data">
                     <fieldset class="form__group form__col--md">
-                        <img src="http://placehold.it/300x300" alt="img" class="form__img responsive-img js__bike__preview"/>
+                        <img src="http://placehold.it/300x300" alt="img"
+                             class="form__img js__bike__preview"/>
                         <div class="form__element justify-center">
                             <label for="product-img">
-                                <input type="file" onchange="App.setImagePreview(event)" name="image" class="form__control hidden" id="product-img" />
+                                <input type="file" onchange="App.setImagePreview(event)" name="image"
+                                       class="form__control input hidden" id="product-img" />
                                 <span class="button button--default">Upload image</span>
                             </label>
                         </div>
@@ -45,35 +53,30 @@
                                 <label class="label hidden" for="product-brand"></label>
                                 <select class="form__control select" id="product-brand" name="brand">
                                     <option value="" hidden selected>Select brand</option>
-                                    <option value="1">Brand name 1</option>
-                                    <option value="2">Brand name 2</option>
-                                    <option value="3">Brand name 3</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="form__element">
                             <label class="label" for="product-model">Model</label>
-                            <input class="form__control form__control--error input overflow-fix" name="model" id="product-model" type="text"/>
-
-                            <!-- todo: note on error  -->
-                            <span class="form__error">error</span>
+                            <input class="form__control form__control--error input overflow-fix" name="model"
+                                   id="product-model" type="text"/>
                         </div>
 
                         <div class="form__row">
                             <div class="form__col">
                                 <div class="form__element">
                                     <label class="label" for="product-price">Price</label>
-                                    <!-- todo: note on the input type in the case -->
-                                    <input class="form__control input overflow-fix" name="price" id="product-price" type="text"/>
+                                    <input class="form__control input overflow-fix" name="price" id="product-price"
+                                           type="text"/>
 
                                 </div>
                             </div>
                             <div class="form__col">
                                 <div class="form__element">
                                     <label class="label" for="product-size">Size</label>
-                                    <!-- todo: note on the input type in the case -->
-                                    <input class="form__control input overflow-fix" name="size" id="product-size" type="text"/>
+                                    <input class="form__control input overflow-fix" name="size" id="product-size"
+                                           type="text"/>
                                 </div>
                             </div>
                         </div>
@@ -83,21 +86,22 @@
                                 <label class="label hidden"></label>
                                 <select class="form__control select" name="type">
                                     <option value="" hidden selected>Select type</option>
-                                    <option value="1">Type name 1</option>
-                                    <option value="2">Type name 2</option>
-                                    <option value="3">Type name 3</option>
+                                    <option value="mountain">Mountain</option>
+                                    <option value="road">Road”</option>
+                                    <option value="hybrid">Hybrid</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="form__element">
                             <label class="label" for="product-headline">Headline</label>
-                            <input class="form__control input overflow-fix" name="headline" id="product-headline" type="text"/>
+                            <input class="form__control input overflow-fix" name="headline" id="product-headline"
+                                   type="text"/>
                         </div>
 
                         <div class="form__element">
                             <label class="label flex-block" for="product-desc">Description</label>
-                            <textarea id="product-desc" class="form__control textarea" name="description"></textarea>
+                            <textarea id="product-desc" class="form__control input textarea" name="description"></textarea>
                         </div>
                         <div class="form__footer">
                             <input type="submit" value="addBike">
@@ -151,6 +155,38 @@
 
             </div>
         </div>
+    </div>
+    <div id="adminBrand">
+        <div class="container">
+            <div class="content">
+                <form class="form form--admin" onsubmit="App.brandSubmit(event)">
+                    <div class="form__element">
+                        Name: <input name="name" class="form__control" type="text">
+                    </div>
+                    <div class="form__element">
+                        File: <input name="image" class="form__control" type="file">
+                    </div>
+
+                    <button class="button button--default" type="submit">Save</button>
+                </form>
+                <div class="table-container">
+                    <table class="table adminBrandsTable">
+                        <thead>
+                        <tr>
+                            <th >Name</th>
+                            <th>Image</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 </div>
 

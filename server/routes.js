@@ -20,9 +20,10 @@ function setRoutes(app) {
     app.route('/api/bikes').get(bikes.getAll);
     app.route('/api/brands').get(brands.getAll);
     app.route('/api/bike').post(upload.single('image'), bikes.insert);
+    app.route('/api/brand').post(upload.single('image'), brands.insert);
     app.route('/api/bike/:id').get(bikes.get);
-    app.route('/api/bike/:id').put(bikes.update);
-    app.route('/api/bike/:id').delete(bikes.delete);
+    app.route('/api/brand/:id').get(brands.getByName);
+    app.route('/api/brand/:id').delete(brands.delete);
 }
 exports.default = setRoutes;
 //# sourceMappingURL=routes.js.map
