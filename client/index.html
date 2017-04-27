@@ -42,7 +42,7 @@
                         <div class="form__element justify-center">
                             <label for="product-img">
                                 <input type="file" onchange="App.setImagePreview(event)" name="image"
-                                       class="form__control input hidden" id="product-img" />
+                                       class="form__control hidden" id="product-img"/>
                                 <span class="button button--default">Upload image</span>
                             </label>
                         </div>
@@ -59,7 +59,7 @@
 
                         <div class="form__element">
                             <label class="label" for="product-model">Model</label>
-                            <input class="form__control form__control--error input overflow-fix" name="model"
+                            <input class="form__control input overflow-fix" name="model"
                                    id="product-model" type="text"/>
                         </div>
 
@@ -87,7 +87,7 @@
                                 <select class="form__control select" name="type">
                                     <option value="" hidden selected>Select type</option>
                                     <option value="mountain">Mountain</option>
-                                    <option value="road">Road”</option>
+                                    <option value="road">Road</option>
                                     <option value="hybrid">Hybrid</option>
                                 </select>
                             </div>
@@ -101,11 +101,10 @@
 
                         <div class="form__element">
                             <label class="label flex-block" for="product-desc">Description</label>
-                            <textarea id="product-desc" class="form__control input textarea" name="description"></textarea>
+                            <textarea id="product-desc" class="form__control textarea" name="description"></textarea>
                         </div>
                         <div class="form__footer">
-                            <input type="submit" value="addBike">
-                            <!--<button class="button button&#45;&#45;default">Add bike</button>-->
+                            <input type="submit" class="button button--default" value="addBike">
                         </div>
                     </fieldset>
 
