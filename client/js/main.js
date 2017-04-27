@@ -430,9 +430,7 @@ App.prototype = {
         setTimeout(function () {
             App.initAdminBrand();
         }, 1000);
-        event.target.reset()
-
-
+        event.target.reset();
     }
 
 };
